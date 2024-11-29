@@ -74,7 +74,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
-      label: 'Document to link to',
+      label: 'Internal Link',
       maxDepth: 1,
       relationTo: ['pages'],
       required: true,
@@ -91,14 +91,6 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
   ]
 
   if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }))
-
     linkResult.fields.push({
       type: 'row',
       fields: [
@@ -135,6 +127,114 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       options: appearanceOptionsToUse,
     })
   }
+
+  // Add a recursive group field for child links (multi-level)
+  linkResult.fields.push({
+    name: 'subLinks',
+    type: 'array',
+    label: 'Sub Links',
+    fields: [
+      {
+        name: 'subLink',
+        type: 'group',
+        fields: [
+          {
+            name: 'type',
+            type: 'radio',
+            admin: {
+              layout: 'horizontal',
+              width: '50%',
+            },
+            defaultValue: 'reference',
+            options: [
+              {
+                label: 'Internal link',
+                value: 'reference',
+              },
+              {
+                label: 'Custom URL',
+                value: 'custom',
+              },
+            ],
+          },
+          {
+            name: 'newTab',
+            type: 'checkbox',
+            admin: {
+              style: {
+                alignSelf: 'flex-end',
+              },
+              width: '50%',
+            },
+            label: 'Open in new tab',
+          },
+          ...linkTypes,
+          {
+            name: 'label',
+            type: 'text',
+            label: 'Label',
+            required: true,
+          },
+          {
+            name: 'subLinks',
+            type: 'array',
+            label: 'Sub Links',
+            fields: [
+              {
+                name: 'subLink',
+                type: 'group',
+                fields: [
+                  {
+                    name: 'type',
+                    type: 'radio',
+                    admin: {
+                      layout: 'horizontal',
+                      width: '50%',
+                    },
+                    defaultValue: 'reference',
+                    options: [
+                      {
+                        label: 'Internal link',
+                        value: 'reference',
+                      },
+                      {
+                        label: 'Custom URL',
+                        value: 'custom',
+                      },
+                    ],
+                  },
+                  {
+                    name: 'newTab',
+                    type: 'checkbox',
+                    admin: {
+                      style: {
+                        alignSelf: 'flex-end',
+                      },
+                      width: '50%',
+                    },
+                    label: 'Open in new tab',
+                  },
+                  ...linkTypes,
+                  {
+                    name: 'label',
+                    type: 'text',
+                    label: 'Label',
+                    required: true,
+                  },
+                ],
+              },
+            ],
+            admin: {
+              description: 'Add sub-links for a nested navigation structure.',
+            },
+          },
+        ],
+      },
+    ],
+    admin: {
+      description: 'Add sub-links for a multi-level navigation structure.',
+    },
+  })
 
   return deepMerge(linkResult, overrides)
 }

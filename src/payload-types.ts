@@ -113,6 +113,36 @@ export interface Page {
             url?: string | null;
             label: string;
             appearance?: ('default' | 'outline') | null;
+            subLinks?:
+              | {
+                  subLink: {
+                    type?: ('reference' | 'custom') | null;
+                    newTab?: boolean | null;
+                    reference?: {
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null;
+                    url?: string | null;
+                    label: string;
+                    subLinks?:
+                      | {
+                          subLink: {
+                            type?: ('reference' | 'custom') | null;
+                            newTab?: boolean | null;
+                            reference?: {
+                              relationTo: 'pages';
+                              value: string | Page;
+                            } | null;
+                            url?: string | null;
+                            label: string;
+                          };
+                          id?: string | null;
+                        }[]
+                      | null;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
           };
           id?: string | null;
         }[]
@@ -248,6 +278,36 @@ export interface CallToActionBlock {
           url?: string | null;
           label: string;
           appearance?: ('default' | 'outline') | null;
+          subLinks?:
+            | {
+                subLink: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null;
+                  url?: string | null;
+                  label: string;
+                  subLinks?:
+                    | {
+                        subLink: {
+                          type?: ('reference' | 'custom') | null;
+                          newTab?: boolean | null;
+                          reference?: {
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null;
+                          url?: string | null;
+                          label: string;
+                        };
+                        id?: string | null;
+                      }[]
+                    | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
@@ -290,6 +350,36 @@ export interface ContentBlock {
           url?: string | null;
           label: string;
           appearance?: ('default' | 'outline') | null;
+          subLinks?:
+            | {
+                subLink: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null;
+                  url?: string | null;
+                  label: string;
+                  subLinks?:
+                    | {
+                        subLink: {
+                          type?: ('reference' | 'custom') | null;
+                          newTab?: boolean | null;
+                          reference?: {
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null;
+                          url?: string | null;
+                          label: string;
+                        };
+                        id?: string | null;
+                      }[]
+                    | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
@@ -788,6 +878,34 @@ export interface PagesSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    subLinks?:
+                      | T
+                      | {
+                          subLink?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                subLinks?:
+                                  | T
+                                  | {
+                                      subLink?:
+                                        | T
+                                        | {
+                                            type?: T;
+                                            newTab?: T;
+                                            reference?: T;
+                                            url?: T;
+                                            label?: T;
+                                          };
+                                      id?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
                   };
               id?: T;
             };
@@ -812,6 +930,34 @@ export interface PagesSelect<T extends boolean = true> {
                           url?: T;
                           label?: T;
                           appearance?: T;
+                          subLinks?:
+                            | T
+                            | {
+                                subLink?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      subLinks?:
+                                        | T
+                                        | {
+                                            subLink?:
+                                              | T
+                                              | {
+                                                  type?: T;
+                                                  newTab?: T;
+                                                  reference?: T;
+                                                  url?: T;
+                                                  label?: T;
+                                                };
+                                            id?: T;
+                                          };
+                                    };
+                                id?: T;
+                              };
                         };
                     id?: T;
                   };
@@ -836,6 +982,34 @@ export interface PagesSelect<T extends boolean = true> {
                           url?: T;
                           label?: T;
                           appearance?: T;
+                          subLinks?:
+                            | T
+                            | {
+                                subLink?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      subLinks?:
+                                        | T
+                                        | {
+                                            subLink?:
+                                              | T
+                                              | {
+                                                  type?: T;
+                                                  newTab?: T;
+                                                  reference?: T;
+                                                  url?: T;
+                                                  label?: T;
+                                                };
+                                            id?: T;
+                                          };
+                                    };
+                                id?: T;
+                              };
                         };
                     id?: T;
                   };
@@ -1271,6 +1445,36 @@ export interface Header {
           } | null;
           url?: string | null;
           label: string;
+          subLinks?:
+            | {
+                subLink: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null;
+                  url?: string | null;
+                  label: string;
+                  subLinks?:
+                    | {
+                        subLink: {
+                          type?: ('reference' | 'custom') | null;
+                          newTab?: boolean | null;
+                          reference?: {
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null;
+                          url?: string | null;
+                          label: string;
+                        };
+                        id?: string | null;
+                      }[]
+                    | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
@@ -1295,6 +1499,36 @@ export interface Footer {
           } | null;
           url?: string | null;
           label: string;
+          subLinks?:
+            | {
+                subLink: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null;
+                  url?: string | null;
+                  label: string;
+                  subLinks?:
+                    | {
+                        subLink: {
+                          type?: ('reference' | 'custom') | null;
+                          newTab?: boolean | null;
+                          reference?: {
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null;
+                          url?: string | null;
+                          label: string;
+                        };
+                        id?: string | null;
+                      }[]
+                    | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
       }[]
@@ -1318,6 +1552,34 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              subLinks?:
+                | T
+                | {
+                    subLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          subLinks?:
+                            | T
+                            | {
+                                subLink?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                  };
             };
         id?: T;
       };
@@ -1341,6 +1603,34 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              subLinks?:
+                | T
+                | {
+                    subLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          subLinks?:
+                            | T
+                            | {
+                                subLink?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                  };
             };
         id?: T;
       };
