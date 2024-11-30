@@ -89,6 +89,7 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        customPurple: '#1D1752',
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],

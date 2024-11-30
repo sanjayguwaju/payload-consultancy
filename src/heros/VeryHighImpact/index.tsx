@@ -36,7 +36,7 @@ export const VeryHighImpactHero: React.FC<Page['hero']> = ({ links, media, richT
           )}
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
+      <div className="min-h-[110vh] select-none">
         {media && typeof media === 'object' && (
           <Media
             fill

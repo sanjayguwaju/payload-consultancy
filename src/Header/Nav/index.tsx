@@ -26,13 +26,21 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           return (
             <li key={i} className="relative group">
               {/* Render CMSLink for the main link */}
-              <CMSLink {...link} appearance="link" className={cn({ 'font-bold text-gray-600': level === 0 })} />
+              <CMSLink
+                {...link}
+                appearance="link"
+                className={cn({
+                  'font-bold text-[#1D1752]': level === 0,
+                  'text-[#1D1752] py-1': level === 1,
+                  'text-[#1D1753] py-1': level === 2,
+                })}
+              />
 
               {/* Render dropdown for subLinks if present */}
               {link.subLinks && link.subLinks.length > 0 && (
                 <ul
                   className={cn(
-                    'absolute hidden group-hover:flex flex-col text-black bg-slate-600 shadow-md border rounded p-2',
+                    'absolute hidden group-hover:flex flex-col px-4 py-4 w-72 text-black bg-white shadow-md rounded-sm',
                     { 'top-full left-0': level === 0, 'left-full top-0': level > 0 }
                   )}
                 >
@@ -49,14 +57,14 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   }
 
   return (
-    <nav className="flex gap-3 items-center">
+    <nav className="flex gap-4 items-center">
       {/* Render navigation items */}
       {renderNavItems(navItems)}
 
       {/* Render search link with an icon */}
       <Link href="/search">
         <span className="sr-only">Search</span>
-        <SearchIcon className="w-5 text-primary" />
+        <SearchIcon className="w-5 text-black" />
       </Link>
     </nav>
   )
