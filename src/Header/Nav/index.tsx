@@ -21,18 +21,18 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
 
   const renderNavItems = (items: NavItemType[], level = 0) => {
     return (
-      <ul className={cn('flex flex-col', { 'flex-row gap-3': level === 0 })}>
+      <ul className={cn('flex flex-col', { 'flex-row gap-4': level === 0 })}>
         {items.map(({ link }, i) => {
           return (
             <li key={i} className="relative group">
               {/* Render CMSLink for the main link */}
-              <CMSLink {...link} appearance="link" className={cn({ 'font-bold': level === 0 })} />
+              <CMSLink {...link} appearance="link" className={cn({ 'font-bold text-gray-600': level === 0 })} />
 
               {/* Render dropdown for subLinks if present */}
               {link.subLinks && link.subLinks.length > 0 && (
                 <ul
                   className={cn(
-                    'absolute hidden group-hover:flex flex-col text-black shadow-md border rounded p-2',
+                    'absolute hidden group-hover:flex flex-col text-black bg-slate-600 shadow-md border rounded p-2',
                     { 'top-full left-0': level === 0, 'left-full top-0': level > 0 }
                   )}
                 >

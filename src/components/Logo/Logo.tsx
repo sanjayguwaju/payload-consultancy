@@ -22,7 +22,7 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
+      className={clsx('max-w-[10.375rem] w-full h-[50px]', className)}
       src="https://res.cloudinary.com/dz3facqgc/image/upload/v1732875986/vp1vsgra7l3topuxqgnh.png"
     />
   )
