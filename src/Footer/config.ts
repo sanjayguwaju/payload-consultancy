@@ -16,6 +16,25 @@ export const Footer: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'category',
+          type: 'select',
+          options: [
+            {
+              label: 'Resources',
+              value: 'resources',
+            },
+            {
+              label: 'Follow Us',
+              value: 'followUs',
+            },
+            {
+              label: 'Legal',
+              value: 'legal',
+            },
+          ],
+          required: true,
+        },
       ],
       maxRows: 6,
     },
