@@ -737,6 +737,7 @@ export interface FeatureBlock {
  * via the `definition` "TeamSection".
  */
 export interface TeamSection {
+  type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'veryHighImpact';
   introContent?: {
     root: {
       type: string;
@@ -755,6 +756,9 @@ export interface TeamSection {
   media?:
     | {
         mediaItem: string | Media;
+        name: string;
+        title: string;
+        description: string;
         id?: string | null;
       }[]
     | null;
@@ -1120,11 +1124,15 @@ export interface PagesSelect<T extends boolean = true> {
         teamsection?:
           | T
           | {
+              type?: T;
               introContent?: T;
               media?:
                 | T
                 | {
                     mediaItem?: T;
+                    name?: T;
+                    title?: T;
+                    description?: T;
                     id?: T;
                   };
               id?: T;

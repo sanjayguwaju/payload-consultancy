@@ -6,6 +6,35 @@ export const TeamSection: Block = {
   interfaceName: 'TeamSection',
   fields: [
     {
+      name: 'type',
+      type: 'select',
+      defaultValue: 'lowImpact',
+      label: 'Type',
+      options: [
+        {
+          label: 'None',
+          value: 'none',
+        },
+        {
+          label: 'High Impact',
+          value: 'highImpact',
+        },
+        {
+          label: 'Medium Impact',
+          value: 'mediumImpact',
+        },
+        {
+          label: 'Low Impact',
+          value: 'lowImpact',
+        },
+        {
+          label: 'Very High Impact',
+          value: 'veryHighImpact',
+        },
+      ],
+      required: true,
+    },
+    {
       name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
@@ -29,7 +58,50 @@ export const TeamSection: Block = {
           type: 'upload',
           relationTo: 'media',
           required: true,
-        }
+        },
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Name',
+          required: true,
+        },
+        {
+          name: 'title',
+          type: 'text',
+          label: 'Job Title',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Description',
+          required: true,
+        },
+        // {
+        //   name: 'socialLinks',
+        //   type: 'array',
+        //   label: 'Social Media Links',
+        //   fields: [
+        //     {
+        //       name: 'platform',
+        //       type: 'text',
+        //       label: 'Platform Name',
+        //       required: true,
+        //     },
+        //     {
+        //       name: 'url',
+        //       type: 'text',
+        //       label: 'Platform URL',
+        //       required: true,
+        //     },
+        //     {
+        //       name: 'icon',
+        //       type: 'text',
+        //       label: 'Icon SVG Path or URL',
+        //       required: true,
+        //     },
+        //   ],
+        // },
       ],
     },
   ],
