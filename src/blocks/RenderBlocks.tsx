@@ -9,7 +9,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { FeatureBlock } from './FeatureBlock/Component'
-import { features } from 'process'
+import { TeamSection } from './TeamSection/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -18,6 +18,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   feature: FeatureBlock,
+  teamsection: TeamSection
 }
 
 export const RenderBlocks: React.FC<{

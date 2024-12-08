@@ -149,7 +149,7 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | FeatureBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | FeatureBlock | TeamSection)[];
   meta?: {
     title?: string | null;
     image?: (string | null) | Media;
@@ -722,19 +722,45 @@ export interface FeatureBlock {
     };
     [k: string]: unknown;
   } | null;
-  title: string;
-  description: string;
-  mediaItems?:
+  media?:
     | {
-        title: string;
-        alt: string;
-        src: string;
+        mediaItem: string | Media;
         id?: string | null;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'feature';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamSection".
+ */
+export interface TeamSection {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  media?:
+    | {
+        mediaItem: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamsection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1082,14 +1108,23 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               introContent?: T;
-              title?: T;
-              description?: T;
-              mediaItems?:
+              media?:
                 | T
                 | {
-                    title?: T;
-                    alt?: T;
-                    src?: T;
+                    mediaItem?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        teamsection?:
+          | T
+          | {
+              introContent?: T;
+              media?:
+                | T
+                | {
+                    mediaItem?: T;
                     id?: T;
                   };
               id?: T;

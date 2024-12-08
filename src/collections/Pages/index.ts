@@ -22,6 +22,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { getServerSideURL } from '@/utilities/getURL'
 import { Feature } from '@/blocks/FeatureBlock/config'
+import { TeamSection } from '@/blocks/TeamSection/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -78,7 +79,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Feature],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Feature, TeamSection],
               required: true,
             },
           ],

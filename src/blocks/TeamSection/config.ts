@@ -1,9 +1,9 @@
 import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'  
 
-export const Feature: Block = {
-  slug: 'feature',
-  interfaceName: 'FeatureBlock',
+export const TeamSection: Block = {
+  slug: 'teamsection',
+  interfaceName: 'TeamSection',
   fields: [
     {
       name: 'introContent',
