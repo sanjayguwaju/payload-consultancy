@@ -62,11 +62,12 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       {/* Render navigation items */}
       <div className="hidden sm:block">
         {renderNavItems(navItems)}
-      <Link href="/search">
+      </div>
+      <Link href="/search" className='hidden sm:block'>
         <span className="sr-only">Search</span>
         <SearchIcon className="w-5 text-black" />
       </Link>
-      </div>
+
       <div className="block sm:hidden">
         <MobileNav />
       </div>
