@@ -6,6 +6,7 @@ import { CMSLink, CMSLinkType } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon } from 'lucide-react'
 import { cn } from 'src/utilities/cn' // Ensure you have a utility for classNames
+import MobileNav from '../MobileNav'
 
 type ExtendedCMSLinkType = CMSLinkType & {
   subLinks?: { subLink: ExtendedCMSLinkType }[] | null
@@ -59,13 +60,16 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   return (
     <nav className="flex gap-4 items-center">
       {/* Render navigation items */}
-      {renderNavItems(navItems)}
-
-      {/* Render search link with an icon */}
+      <div className="hidden sm:block">
+        {renderNavItems(navItems)}
       <Link href="/search">
         <span className="sr-only">Search</span>
         <SearchIcon className="w-5 text-black" />
       </Link>
+      </div>
+      <div className="block sm:hidden">
+        <MobileNav />
+      </div>
     </nav>
   )
 }

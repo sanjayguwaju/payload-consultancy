@@ -3,7 +3,6 @@ import RichText from '@/components/RichText'
 import React from 'react'
 
 export const FeatureBlock = async (props: any) => {
-  console.log("props -->", props.media);
   const { id, introContent, media } = props
   return (
     <>

@@ -25,7 +25,6 @@ export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
 }> = (props) => {
   const { blocks } = props
-  console.log({blocks});
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
