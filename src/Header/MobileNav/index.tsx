@@ -18,16 +18,17 @@ type MobileNavProps = {
 
 const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [activeDropdown, setActiveDropdown] = useState<{ [key: number]: string | null }>({})
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
-  const toggleDropdown = (dropdown: string) =>
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
+  const toggleDropdown = (label: string, level: number) => {
+    setActiveDropdown((prev) => ({
+      ...prev,
+      [level]: prev[level] === label ? null : label,
+    }))
+  }
 
   const renderNavItems = (navItems: ExtendedCMSLinkType[], level = 0) => {
-    if(level === 1 ) {
-      console.log("navItems --->", navItems)
-    }
     return (
       <ul className="space-y-2">
         {navItems.map((item, i) => {
@@ -37,7 +38,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
               <button
                 onClick={() =>
                   item?.link?.subLinks && item?.link?.subLinks.length > 0
-                    ? toggleDropdown(item.link.label)
+                    ? toggleDropdown(item.link.label, level)
                     : undefined
                 }
                 className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
@@ -54,9 +55,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
                 {/* Toggle dropdown icon */}
                 {item.link?.subLinks && item.link?.subLinks.length > 0 && (
                   <svg
-                    className={`w-6 h-6 transition-transform ${
-                      activeDropdown === item.link.label ? 'rotate-180' : ''
-                    }`}
+                    className={`w-6 h-6 transition-transform ${activeDropdown[level] === item.link.label ? 'rotate-180' : ''
+                      }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -71,9 +71,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
               </button>
 
               {/* Render subLinks if dropdown is active */}
-              {item.link?.subLinks && item.link?.subLinks.length > 0 && activeDropdown === item.link.label && (
+              {item?.link?.subLinks && item?.link?.subLinks.length > 0 && activeDropdown[level] === item?.link?.label && (
                 <ul className="py-2 pl-6 space-y-2">
-                  {renderNavItems(item.link.subLinks.map(({ subLink }) => ({
+                  {renderNavItems(item?.link.subLinks.map(({ subLink }:any) => ({
                     link: subLink, // Passing subLink object to renderNavItems
                   })), level + 1)}
                 </ul>
@@ -111,9 +111,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
 
       <aside
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } sm:translate-x-0 bg-white border-r border-gray-200`}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } sm:translate-x-0 bg-white border-r border-gray-200`}
         aria-label="Sidenav"
       >
         <div className="overflow-y-auto py-5 px-3 h-full">
