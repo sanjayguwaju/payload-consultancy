@@ -73,7 +73,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
               {/* Render subLinks if dropdown is active */}
               {item.link?.subLinks && item.link?.subLinks.length > 0 && activeDropdown === item.link.label && (
                 <ul className="py-2 pl-6 space-y-2">
-                  {renderNavItems(item.link.subLinks, level + 1)} {/* Recursive rendering of subLinks */}
+                  {renderNavItems(item.link.subLinks.map(({ subLink }) => ({
+                    link: subLink, // Passing subLink object to renderNavItems
+                  })), level + 1)}
                 </ul>
               )}
             </li>
