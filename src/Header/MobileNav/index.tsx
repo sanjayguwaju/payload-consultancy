@@ -1,12 +1,87 @@
-import React, { useState } from "react";
+'use client'
 
-const MobileNav = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+import React, { useState } from 'react'
+import { CMSLink } from '@/components/Link' // Ensure you have CMSLink imported
+import { cn } from 'src/utilities/cn'
 
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
-  const toggleDropdown = (dropdown) =>
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+type ExtendedCMSLinkType = {
+  link: {
+    label: string
+    href: string
+    subLinks?: ExtendedCMSLinkType[] | null
+  }
+}
+
+type MobileNavProps = {
+  navItems: ExtendedCMSLinkType[]
+}
+
+const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
+  const toggleDropdown = (dropdown: string) =>
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
+
+  const renderNavItems = (navItems: ExtendedCMSLinkType[], level = 0) => {
+    if(level === 1 ) {
+      console.log("navItems --->", navItems)
+    }
+    return (
+      <ul className="space-y-2">
+        {navItems.map((item, i) => {
+          return (
+            <li key={i} className="relative">
+              {/* Main Link */}
+              <button
+                onClick={() =>
+                  item?.link?.subLinks && item?.link?.subLinks.length > 0
+                    ? toggleDropdown(item.link.label)
+                    : undefined
+                }
+                className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
+              >
+                <CMSLink
+                  {...item.link}
+                  appearance="link"
+                  className={cn({
+                    'font-bold text-[#1D1752]': level === 0,
+                    'text-[#1D1752] py-1': level === 1,
+                    'text-[#1D1753] py-1': level === 2,
+                  })}
+                />
+                {/* Toggle dropdown icon */}
+                {item.link?.subLinks && item.link?.subLinks.length > 0 && (
+                  <svg
+                    className={`w-6 h-6 transition-transform ${
+                      activeDropdown === item.link.label ? 'rotate-180' : ''
+                    }`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                )}
+              </button>
+
+              {/* Render subLinks if dropdown is active */}
+              {item.link?.subLinks && item.link?.subLinks.length > 0 && activeDropdown === item.link.label && (
+                <ul className="py-2 pl-6 space-y-2">
+                  {renderNavItems(item.link.subLinks, level + 1)} {/* Recursive rendering of subLinks */}
+                </ul>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
 
   return (
     <>
@@ -35,102 +110,16 @@ const MobileNav = () => {
       <aside
         id="default-sidebar"
         className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } sm:translate-x-0 bg-white border-r border-gray-200`}
         aria-label="Sidenav"
       >
         <div className="overflow-y-auto py-5 px-3 h-full">
-          <ul className="space-y-2">
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-400 transition duration-75  group-hover:text-gray-900"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg>
-                <span className="ml-3">Study Abroad</span>
-              </a>
-            </li>
-            <li>
-              <button
-                onClick={() => toggleDropdown("pages")}
-                type="button"
-                className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <span className="flex-1 ml-3 text-left whitespace-nowrap">
-                  Pages
-                </span>
-                <svg
-                  aria-hidden="true"
-                  className={`w-6 h-6 transition-transform ${
-                    activeDropdown === "pages" ? "rotate-180" : ""
-                  }`}
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-              {activeDropdown === "pages" && (
-                <ul className="py-2 space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 pl-11 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 pl-11 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-                    >
-                      Kanban
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center p-2 pl-11 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-                    >
-                      Calendar
-                    </a>
-                  </li>
-                </ul>
-              )}
-            </li>
-          </ul>
+          {renderNavItems(navItems)}
         </div>
       </aside>
     </>
-  );
-};
+  )
+}
 
-export default MobileNav;
+export default MobileNav

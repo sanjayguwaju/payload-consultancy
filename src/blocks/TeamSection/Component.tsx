@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 
 import RichText from '@/components/RichText'
 import React from 'react'

@@ -69,7 +69,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       </Link>
 
       <div className="block sm:hidden">
-        <MobileNav />
+        <MobileNav navItems={navItems as any}/>
       </div>
     </nav>
   )
