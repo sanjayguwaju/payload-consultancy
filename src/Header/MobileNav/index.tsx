@@ -60,8 +60,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
                 {...item.link}
                 appearance="link"
                 className={cn({
-                  'font-bold text-[#1D1752]': level === 0,
-                  'text-[#1D1752] py-1': level === 1,
+                  'font-bold text-[#1D1752] text-lg no-underline': level === 0,
+                  'font-bold text-[#1D1752] py-1': level === 1,
                   'text-[#1D1753] py-1': level === 2,
                 })}
               />
