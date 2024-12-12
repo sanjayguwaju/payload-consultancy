@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CMSLink } from '@/components/Link'
 import { cn } from 'src/utilities/cn'
 
@@ -20,6 +20,10 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<{ [key: number]: string | null }>({})
 
+  // Ref for the sidebar
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  // Ref for the toggle button to return focus
+  const toggleButtonRef = useRef<HTMLButtonElement>(null)
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
   const toggleDropdown = (label: string, level: number) => {
     setActiveDropdown((prev) => ({
@@ -27,6 +31,74 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
       [level]: prev[level] === label ? null : label,
     }))
   }
+
+  // Prevent body from scrolling when sidebar is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isSidebarOpen])
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    if (!isSidebarOpen) return
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setSidebarOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    // Cleanup event listener on unmount or when sidebar closes
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isSidebarOpen])
+
+  // Close sidebar on Esc key
+  useEffect(() => {
+    if (!isSidebarOpen) return
+
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSidebarOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleEsc)
+
+    // Cleanup event listener on unmount or when sidebar closes
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [isSidebarOpen])
+
+
+  // Return focus to the toggle button when sidebar closes
+  useEffect(() => {
+    if (!isSidebarOpen && toggleButtonRef.current) {
+      toggleButtonRef.current.focus()
+    }
+  }, [isSidebarOpen])
+
+  // Manage focus within the sidebar when it's open
+  useEffect(() => {
+    if (isSidebarOpen && sidebarRef.current) {
+      const firstFocusableElement = sidebarRef.current.querySelector<HTMLElement>(
+        'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
+      )
+      firstFocusableElement?.focus()
+    }
+  }, [isSidebarOpen])
 
   const renderNavItems = (navItems: ExtendedCMSLinkType[], level = 0) => {
     return (
@@ -73,7 +145,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
               {/* Render subLinks if dropdown is active */}
               {item?.link?.subLinks && item?.link?.subLinks.length > 0 && activeDropdown[level] === item?.link?.label && (
                 <ul className="py-2 pl-6 space-y-2">
-                  {renderNavItems(item?.link.subLinks.map(({ subLink }:any) => ({
+                  {renderNavItems(item?.link.subLinks.map(({ subLink }: any) => ({
                     link: subLink, // Passing subLink object to renderNavItems
                   })), level + 1)}
                 </ul>
@@ -89,6 +161,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
     <>
       <button
         onClick={toggleSidebar}
+        ref={toggleButtonRef}
         aria-controls="default-sidebar"
         type="button"
         className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -109,9 +182,18 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
         </svg>
       </button>
 
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black opacity-50 transition-opacity"
+          onClick={toggleSidebar}
+          aria-hidden="true"
+        ></div>
+      )}
+
       <aside
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        ref={sidebarRef}
+        className={`fixed top-0 left-0 z-40 w-80 h-screen transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } sm:translate-x-0 bg-white border-r border-gray-200`}
         aria-label="Sidenav"
       >
