@@ -1,80 +1,14 @@
 'use client'
 
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import { CMSLink } from '@/components/Link'
 import { cn } from 'src/utilities/cn'
+import { ExtendedCMSLinkType, MobileNavProps } from '../header.types'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
+import { useOnClickOutside } from '../hooks/useOnClickOutside'
+import { useEscapeKey } from '../hooks/useEscapeKey'
+import { useFocusManagement } from '../hooks/useFocusManagement'
 
-// Custom Hooks
-const useLockBodyScroll = (isLocked: boolean) => {
-  useEffect(() => {
-    if (isLocked) {
-      const originalStyle = window.getComputedStyle(document.body).overflow
-      document.body.style.overflow = 'hidden'
-      return () => {
-        document.body.style.overflow = originalStyle
-      }
-    }
-  }, [isLocked])
-}
-
-const useOnClickOutside = (
-  ref: React.RefObject<HTMLElement>,
-  handler: (event: MouseEvent) => void,
-  when: boolean
-) => {
-  useEffect(() => {
-    if (!when) return
-    const listener = (event: MouseEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
-        return
-      }
-      handler(event)
-    }
-    document.addEventListener('mousedown', listener)
-    return () => {
-      document.removeEventListener('mousedown', listener)
-    }
-  }, [ref, handler, when])
-}
-
-const useEscapeKey = (handler: (event: KeyboardEvent) => void, when: boolean) => {
-  useEffect(() => {
-    if (!when) return
-    document.addEventListener('keydown', handler)
-    return () => {
-      document.removeEventListener('keydown', handler)
-    }
-  }, [handler, when])
-}
-
-const useFocusManagement = (
-  sidebarRef: React.RefObject<HTMLElement>,
-  isOpen: boolean,
-  toggleButtonRef: React.RefObject<HTMLButtonElement>
-) => {
-  useEffect(() => {
-    if (isOpen && sidebarRef.current) {
-      const firstFocusableElement = sidebarRef.current.querySelector<HTMLElement>(
-        'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-      )
-      firstFocusableElement?.focus()
-    } else if (!isOpen && toggleButtonRef.current) {
-      toggleButtonRef.current.focus()
-    }
-  }, [isOpen, sidebarRef, toggleButtonRef])
-}
-
-type ExtendedCMSLinkType = {
-  link: {
-    label: string
-    href: string
-    subLinks?: ExtendedCMSLinkType[] | null
-  }
-}
-
-type MobileNavProps = {
-  navItems: ExtendedCMSLinkType[]
-}
 
 const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
@@ -92,7 +26,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
     }))
   }, [])
 
-  // Use Custom Hooks
   useLockBodyScroll(isSidebarOpen)
 
   useOnClickOutside(sidebarRef as any, closeSidebar, isSidebarOpen)
