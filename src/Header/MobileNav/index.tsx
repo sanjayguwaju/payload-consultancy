@@ -184,7 +184,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
 
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black opacity-50 transition-opacity"
+          className="fixed inset-0 z-30 bg-slate-300 opacity-50 transition-opacity"
           onClick={toggleSidebar}
           aria-hidden="true"
         ></div>
