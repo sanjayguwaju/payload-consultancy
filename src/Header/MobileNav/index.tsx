@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { CMSLink } from '@/components/Link' // Ensure you have CMSLink imported
+import { CMSLink } from '@/components/Link'
 import { cn } from 'src/utilities/cn'
 
 type ExtendedCMSLinkType = {
