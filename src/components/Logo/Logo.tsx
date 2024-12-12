@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import React from 'react'
 
 interface Props {
@@ -14,8 +15,7 @@ export const Logo = (props: Props) => {
   const priority = priorityFromProps || 'low'
 
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
+    <Image
       alt="Payload Logo"
       width={193}
       height={34}

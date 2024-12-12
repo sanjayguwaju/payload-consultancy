@@ -8,6 +8,8 @@ import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 import { useFocusManagement } from '../hooks/useFocusManagement'
+import Link from 'next/link'
+import { Logo } from '@/components/Logo/Logo'
 
 
 const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
@@ -137,7 +139,11 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
           } sm:translate-x-0 bg-white border-r border-gray-200`}
         aria-label="Sidenav"
       >
+        <Link className="flex items-center mt-2 mx-2" href="/">
+          <Logo />
+        </Link>
         <div className="overflow-y-auto py-5 px-3 h-full">
+   
           {renderNavItems(navItems)}
         </div>
       </aside>

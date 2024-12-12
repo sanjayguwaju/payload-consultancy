@@ -1,5 +1,6 @@
 
 import RichText from '@/components/RichText'
+import Image from 'next/image'
 import React from 'react'
 
 export const FeatureBlock = async (props: any) => {
@@ -12,7 +13,7 @@ export const FeatureBlock = async (props: any) => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
             {media?.map((item: any, index: any) => (
               <div key={index} className="bg-card p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
-                <img aria-hidden="true" alt={item.alt} src={item?.mediaItem.url} className="mb-4" />
+                <Image aria-hidden="true" alt={item.alt} src={item?.mediaItem.url} className="mb-4" />
                 <h3 className="text-lg font-medium text-primary">{item?.mediaItem.alt}</h3>
               </div>
             ))}
