@@ -20,7 +20,7 @@ type NavItemType = {
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
   const [activeDropdown, setActiveDropdown] = useState<{ [key: number]: string | null }>({})
-  
+
   // Ref to handle click outside
   const navRef = useRef<HTMLDivElement>(null)
 
@@ -48,20 +48,24 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
     return (
       <ul className={cn('flex flex-col', { 'flex-row gap-4': level === 0 })}>
         {items.map((data, i) => {
-          const isActive = activeDropdown[level] === data.link.label
+          const isActive = activeDropdown[level] === data?.link?.label
           return (
             <li key={`${data.link.label}-${i}`} className="relative">
               {/* Render CMSLink for the main link */}
               <button
-                onClick={() =>
-                  data.link?.subLinks && data.link?.subLinks.length > 0
-                    ? toggleDropdown(data.link.label, level)
-                    : undefined
-                }
+                onClick={() => {
+                  if (
+                    data?.link?.subLinks &&
+                    data?.link?.subLinks?.length > 0 &&
+                    typeof data?.link?.label === 'string'
+                  ) {
+                    toggleDropdown(data?.link?.label, level)
+                  }
+                }}
                 className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 focus:outline-none"
               >
                 <CMSLink
-                  {...data.link}
+                  {...data?.link}
                   appearance="link"
                   className={cn({
                     'font-bold text-[#1D1752]': level === 0,
@@ -70,10 +74,9 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   })}
                 />
 
-                {data.link?.subLinks && data.link?.subLinks.length > 0 && (
+                {data?.link?.subLinks && data?.link?.subLinks?.length > 0 && (
                   <svg
-                    className={`w-6 h-6 ml-2 transition-transform ${isActive ? 'rotate-180' : ''
-                      }`}
+                    className={`w-6 h-6 ml-2 transition-transform ${isActive ? 'rotate-180' : ''}`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +91,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
               </button>
 
               {/* Render dropdown for subLinks if present */}
-              {data.link.subLinks && data.link.subLinks.length > 0 && (
+              {data?.link?.subLinks && data?.link?.subLinks.length > 0 && (
                 <ul
                   className={cn(
                     'absolute flex-col px-4 py-4 w-72 text-black bg-white shadow-md rounded-sm transition-all duration-300',
@@ -100,7 +103,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   )}
                 >
                   {renderNavItems(
-                    data.link.subLinks.map(({ subLink }) => ({
+                    data?.link?.subLinks.map(({ subLink }) => ({
                       link: subLink, // Passing subLink object to renderNavItems
                     })),
                     level + 1
