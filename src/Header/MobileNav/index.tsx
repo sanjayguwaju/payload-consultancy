@@ -143,7 +143,6 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
           <Logo />
         </Link>
         <div className="overflow-y-auto py-5 px-3 h-full">
-   
           {renderNavItems(navItems)}
         </div>
       </aside>

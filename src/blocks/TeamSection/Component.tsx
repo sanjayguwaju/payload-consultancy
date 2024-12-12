@@ -24,7 +24,7 @@ export const TeamSection = async (props: any) => {
             {media?.map((item: any, index: number) => (
               <div key={index} className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
                 <Link href="#">
-                  <Image className="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={item?.mediaItem.url} alt="Bonnie Avatar" />
+                  <Image width={350} height={400} className="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={item?.mediaItem.url} alt="Bonnie Avatar" />
                 </Link>
                 <div className="p-5">
                   <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
