@@ -1,8 +1,68 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { CMSLink } from '@/components/Link'
 import { cn } from 'src/utilities/cn'
+
+// Custom Hooks
+const useLockBodyScroll = (isLocked: boolean) => {
+  useEffect(() => {
+    if (isLocked) {
+      const originalStyle = window.getComputedStyle(document.body).overflow
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = originalStyle
+      }
+    }
+  }, [isLocked])
+}
+
+const useOnClickOutside = (
+  ref: React.RefObject<HTMLElement>,
+  handler: (event: MouseEvent) => void,
+  when: boolean
+) => {
+  useEffect(() => {
+    if (!when) return
+    const listener = (event: MouseEvent) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
+        return
+      }
+      handler(event)
+    }
+    document.addEventListener('mousedown', listener)
+    return () => {
+      document.removeEventListener('mousedown', listener)
+    }
+  }, [ref, handler, when])
+}
+
+const useEscapeKey = (handler: (event: KeyboardEvent) => void, when: boolean) => {
+  useEffect(() => {
+    if (!when) return
+    document.addEventListener('keydown', handler)
+    return () => {
+      document.removeEventListener('keydown', handler)
+    }
+  }, [handler, when])
+}
+
+const useFocusManagement = (
+  sidebarRef: React.RefObject<HTMLElement>,
+  isOpen: boolean,
+  toggleButtonRef: React.RefObject<HTMLButtonElement>
+) => {
+  useEffect(() => {
+    if (isOpen && sidebarRef.current) {
+      const firstFocusableElement = sidebarRef.current.querySelector<HTMLElement>(
+        'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
+      )
+      firstFocusableElement?.focus()
+    } else if (!isOpen && toggleButtonRef.current) {
+      toggleButtonRef.current.focus()
+    }
+  }, [isOpen, sidebarRef, toggleButtonRef])
+}
 
 type ExtendedCMSLinkType = {
   link: {
@@ -20,142 +80,88 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<{ [key: number]: string | null }>({})
 
-  // Ref for the sidebar
   const sidebarRef = useRef<HTMLDivElement>(null)
-  // Ref for the toggle button to return focus
   const toggleButtonRef = useRef<HTMLButtonElement>(null)
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
-  const toggleDropdown = (label: string, level: number) => {
+
+  const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), [])
+  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+  const toggleDropdown = useCallback((label: string, level: number) => {
     setActiveDropdown((prev) => ({
       ...prev,
       [level]: prev[level] === label ? null : label,
     }))
-  }
+  }, [])
 
-  // Prevent body from scrolling when sidebar is open
-  useEffect(() => {
-    if (isSidebarOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+  // Use Custom Hooks
+  useLockBodyScroll(isSidebarOpen)
+
+  useOnClickOutside(sidebarRef as any, closeSidebar, isSidebarOpen)
+
+  const handleEsc = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeSidebar()
     }
+  }, [closeSidebar])
+  useEscapeKey(handleEsc, isSidebarOpen)
 
-    // Cleanup when component unmounts
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isSidebarOpen])
+  useFocusManagement(sidebarRef as any, isSidebarOpen, toggleButtonRef as any)
 
-  // Close sidebar when clicking outside
-  useEffect(() => {
-    if (!isSidebarOpen) return
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-        setSidebarOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    // Cleanup event listener on unmount or when sidebar closes
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isSidebarOpen])
-
-  // Close sidebar on Esc key
-  useEffect(() => {
-    if (!isSidebarOpen) return
-
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setSidebarOpen(false)
-      }
-    }
-
-    document.addEventListener('keydown', handleEsc)
-
-    // Cleanup event listener on unmount or when sidebar closes
-    return () => {
-      document.removeEventListener('keydown', handleEsc)
-    }
-  }, [isSidebarOpen])
-
-
-  // Return focus to the toggle button when sidebar closes
-  useEffect(() => {
-    if (!isSidebarOpen && toggleButtonRef.current) {
-      toggleButtonRef.current.focus()
-    }
-  }, [isSidebarOpen])
-
-  // Manage focus within the sidebar when it's open
-  useEffect(() => {
-    if (isSidebarOpen && sidebarRef.current) {
-      const firstFocusableElement = sidebarRef.current.querySelector<HTMLElement>(
-        'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-      )
-      firstFocusableElement?.focus()
-    }
-  }, [isSidebarOpen])
-
-  const renderNavItems = (navItems: ExtendedCMSLinkType[], level = 0) => {
+  const renderNavItems = useCallback((navItems: ExtendedCMSLinkType[], level = 0) => {
     return (
       <ul className="space-y-2">
-        {navItems.map((item, i) => {
-          return (
-            <li key={i} className="relative">
-              {/* Main Link */}
-              <button
-                onClick={() =>
-                  item?.link?.subLinks && item?.link?.subLinks.length > 0
-                    ? toggleDropdown(item.link.label, level)
-                    : undefined
-                }
-                className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
-              >
-                <CMSLink
-                  {...item.link}
-                  appearance="link"
-                  className={cn({
-                    'font-bold text-[#1D1752]': level === 0,
-                    'text-[#1D1752] py-1': level === 1,
-                    'text-[#1D1753] py-1': level === 2,
-                  })}
-                />
-                {/* Toggle dropdown icon */}
-                {item.link?.subLinks && item.link?.subLinks.length > 0 && (
-                  <svg
-                    className={`w-6 h-6 transition-transform ${activeDropdown[level] === item.link.label ? 'rotate-180' : ''
-                      }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                )}
-              </button>
-
-              {/* Render subLinks if dropdown is active */}
-              {item?.link?.subLinks && item?.link?.subLinks.length > 0 && activeDropdown[level] === item?.link?.label && (
-                <ul className="py-2 pl-6 space-y-2">
-                  {renderNavItems(item?.link.subLinks.map(({ subLink }: any) => ({
-                    link: subLink, // Passing subLink object to renderNavItems
-                  })), level + 1)}
-                </ul>
+      {navItems.map((item, i) => {
+        return (
+          <li key={i} className="relative">
+            {/* Main Link */}
+            <button
+              onClick={() =>
+                item?.link?.subLinks && item?.link?.subLinks.length > 0
+                  ? toggleDropdown(item.link.label, level)
+                  : undefined
+              }
+              className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
+            >
+              <CMSLink
+                {...item.link}
+                appearance="link"
+                className={cn({
+                  'font-bold text-[#1D1752]': level === 0,
+                  'text-[#1D1752] py-1': level === 1,
+                  'text-[#1D1753] py-1': level === 2,
+                })}
+              />
+              {/* Toggle dropdown icon */}
+              {item.link?.subLinks && item.link?.subLinks.length > 0 && (
+                <svg
+                  className={`w-6 h-6 transition-transform ${activeDropdown[level] === item.link.label ? 'rotate-180' : ''
+                    }`}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
               )}
-            </li>
-          )
-        })}
-      </ul>
+            </button>
+
+            {/* Render subLinks if dropdown is active */}
+            {item?.link?.subLinks && item?.link?.subLinks.length > 0 && activeDropdown[level] === item?.link?.label && (
+              <ul className="py-2 pl-6 space-y-2">
+                {renderNavItems(item?.link.subLinks.map(({ subLink }: any) => ({
+                  link: subLink, // Passing subLink object to renderNavItems
+                })), level + 1)}
+              </ul>
+            )}
+          </li>
+        )
+      })}
+    </ul>
     )
-  }
+  }, [activeDropdown, toggleDropdown])
 
   return (
     <>
@@ -163,6 +169,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
         onClick={toggleSidebar}
         ref={toggleButtonRef}
         aria-controls="default-sidebar"
+        aria-expanded={isSidebarOpen}
         type="button"
         className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
       >
@@ -185,7 +192,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
       {isSidebarOpen && (
         <div
           className="fixed inset-0 z-30 bg-slate-300 opacity-50 transition-opacity"
-          onClick={toggleSidebar}
+          onClick={closeSidebar}
           aria-hidden="true"
         ></div>
       )}
