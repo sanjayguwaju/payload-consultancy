@@ -1,12 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
 
 import RichText from '@/components/RichText'
+import { TeamSection as TeamSectionProps } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export const TeamSection = async (props: any) => {
-  const { id, introContent, media } = props
+export const TeamSection:React.FC<TeamSectionProps> = (props) => {
+  const { introContent, media } = props
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
@@ -18,7 +18,7 @@ export const TeamSection = async (props: any) => {
               <p className="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">
                 Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind
               </p> */}
-            <RichText className="ml-0 max-w-[48rem] mx-auto" content={introContent} enableGutter={false} />
+            <RichText className="ml-0 max-w-[48rem] mx-auto" content={introContent as any} enableGutter={false} />
           </div>
           <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
             {media?.map((item: any, index: number) => (
