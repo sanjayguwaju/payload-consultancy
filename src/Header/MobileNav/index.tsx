@@ -15,12 +15,21 @@ import Logo from '@/components/Logo/Logo'
 const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<{ [key: number]: string | null }>({})
+  const [isPressed, setIsPressed] = useState(false)
 
   const sidebarRef = useRef<HTMLDivElement>(null)
   const toggleButtonRef = useRef<HTMLButtonElement>(null)
 
-  const toggleSidebar = useCallback(() => setSidebarOpen((prev) => !prev), [])
-  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen((prev) => !prev);
+    setIsPressed((prev) => !prev);
+  }, []);
+
+  const closeSidebar = useCallback(() => { 
+    setSidebarOpen(false); 
+    setIsPressed(false) 
+  }, [])
+  
   const toggleDropdown = useCallback((label: string, level: number) => {
     setActiveDropdown((prev) => ({
       ...prev,
@@ -101,26 +110,18 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
   return (
     <>
       <button
+        className="group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center rounded shadow-[0_1px_0_theme(colors.slate.950/.04),0_1px_2px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] hover:shadow-[0_1px_0_theme(colors.slate.950/.04),0_4px_8px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] transition"
+        aria-pressed={isPressed} 
         onClick={toggleSidebar}
-        ref={toggleButtonRef}
         aria-controls="default-sidebar"
         aria-expanded={isSidebarOpen}
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        ref={toggleButtonRef}
       >
-        <span className="sr-only">Open sidebar</span>
-        <svg
-          className="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
+        <span className="sr-only">Menu</span>
+        <svg className="w-6 h-6 fill-current pointer-events-none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <rect className="origin-center group-[[aria-pressed=true]]:rotate-[315deg] group-[[aria-pressed=true]]:[y:7] group-[[aria-pressed=true]]:[x:0] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)]" y="2" x="7" width="9" height="2" rx="1"></rect>
+          <rect className="origin-center group-[[aria-pressed=true]]:rotate-45 transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)]" y="7" width="16" height="2" rx="1"></rect>
+          <rect className="origin-center group-[[aria-pressed=true]]:rotate-[135deg] group-[[aria-pressed=true]]:[y:7] group-[[aria-pressed=true]]:[x:0] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)]" y="12" width="9" height="2" rx="1"></rect>
         </svg>
       </button>
 
