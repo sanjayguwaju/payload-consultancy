@@ -9,7 +9,7 @@ import { useOnClickOutside } from '../hooks/useOnClickOutside'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 import { useFocusManagement } from '../hooks/useFocusManagement'
 import Link from 'next/link'
-import { Logo } from '@/components/Logo/Logo'
+import Logo from '@/components/Logo/Logo'
 
 
 const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
