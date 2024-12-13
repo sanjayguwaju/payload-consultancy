@@ -69,7 +69,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navItems }) => {
               {item.link?.subLinks && item.link?.subLinks.length > 0 && (
                 <svg
                   className={`w-6 h-6 transition-transform ${activeDropdown[level] === item.link.label ? 'rotate-180' : ''
-                    }`}
+                    } ml-auto`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
