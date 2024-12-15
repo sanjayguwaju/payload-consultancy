@@ -9,6 +9,9 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { FeatureBlock } from './FeatureBlock/Component'
+import { VideoHeroSection } from './VideoHeroSection/Component'
+import { PartnershipLogoBlock } from './PartnershipLogoBlock/Component'
+import { BlogCard } from './BlogCardBlock/Component'
 import { TeamSection } from './TeamSection/Component'
 
 const blockComponents = {
@@ -18,7 +21,10 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   feature: FeatureBlock,
-  teamsection: TeamSection
+  teamsection: TeamSection,
+  videoherosection: VideoHeroSection,
+  partnershiplogoblock: PartnershipLogoBlock,
+  blogcardblock: BlogCard
 }
 
 export const RenderBlocks: React.FC<{

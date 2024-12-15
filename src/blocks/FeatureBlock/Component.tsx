@@ -3,7 +3,7 @@ import RichText from '@/components/RichText'
 import Image from 'next/image'
 import React from 'react'
 
-export const FeatureBlock = async (props: any) => {
+export const FeatureBlock = (props: any) => {
   const { id, introContent, media } = props
   return (
     <>

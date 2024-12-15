@@ -149,7 +149,18 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | FeatureBlock | TeamSection)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | FeatureBlock
+    | TeamSection
+    | VideoHeroSection
+    | PartnershipLogoBlock
+    | BlogCardBlock
+  )[];
   meta?: {
     title?: string | null;
     image?: (string | null) | Media;
@@ -737,7 +748,6 @@ export interface FeatureBlock {
  * via the `definition` "TeamSection".
  */
 export interface TeamSection {
-  type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'veryHighImpact';
   introContent?: {
     root: {
       type: string;
@@ -765,6 +775,78 @@ export interface TeamSection {
   id?: string | null;
   blockName?: string | null;
   blockType: 'teamsection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoHeroSection".
+ */
+export interface VideoHeroSection {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'videoherosection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnershipLogoBlock".
+ */
+export interface PartnershipLogoBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partnershiplogoblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogCardBlock".
+ */
+export interface BlogCardBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'blogcardblock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1124,7 +1206,6 @@ export interface PagesSelect<T extends boolean = true> {
         teamsection?:
           | T
           | {
-              type?: T;
               introContent?: T;
               media?:
                 | T
@@ -1135,6 +1216,27 @@ export interface PagesSelect<T extends boolean = true> {
                     description?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        videoherosection?:
+          | T
+          | {
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        partnershiplogoblock?:
+          | T
+          | {
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        blogcardblock?:
+          | T
+          | {
+              richText?: T;
               id?: T;
               blockName?: T;
             };

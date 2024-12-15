@@ -6,35 +6,6 @@ export const TeamSection: Block = {
   interfaceName: 'TeamSection',
   fields: [
     {
-      name: 'type',
-      type: 'select',
-      defaultValue: 'lowImpact',
-      label: 'Type',
-      options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
-        {
-          label: 'Very High Impact',
-          value: 'veryHighImpact',
-        },
-      ],
-      required: true,
-    },
-    {
       name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
