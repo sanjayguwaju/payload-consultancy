@@ -13,6 +13,7 @@ import { VideoHeroSection } from './VideoHeroSection/Component'
 import { PartnershipLogoBlock } from './PartnershipLogoBlock/Component'
 import { BlogCard } from './BlogCardBlock/Component'
 import { TeamSection } from './TeamSection/Component'
+import { PricingSection } from './PricingBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -24,7 +25,8 @@ const blockComponents = {
   teamsection: TeamSection,
   videoherosection: VideoHeroSection,
   partnershiplogoblock: PartnershipLogoBlock,
-  blogcardblock: BlogCard
+  blogcardblock: BlogCard,
+  pricingsection: PricingSection
 }
 
 export const RenderBlocks: React.FC<{
