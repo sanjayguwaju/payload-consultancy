@@ -11,8 +11,7 @@ const logoVariants = {
 
 export const PartnershipLogoBlock = (props: any) => {
   const { type } = props
-  console.log({ type })
-
+  
   if (type === 'none') {
     return null
   }
