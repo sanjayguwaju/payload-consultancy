@@ -31,7 +31,7 @@ export const PartnershipLogoBlock: Block = {
       required: true,
     },
     {
-      name: 'richText',
+      name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
