@@ -160,6 +160,7 @@ export interface Page {
     | VideoHeroSection
     | PartnershipLogoBlock
     | BlogCardBlock
+    | PricingSection
   )[];
   meta?: {
     title?: string | null;
@@ -851,6 +852,45 @@ export interface BlogCardBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingSection".
+ */
+export interface PricingSection {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  plans?:
+    | {
+        name: string;
+        description: string;
+        price: string;
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricingsection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1239,6 +1279,28 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricingsection?:
+          | T
+          | {
+              introContent?: T;
+              plans?:
+                | T
+                | {
+                    name?: T;
+                    description?: T;
+                    price?: T;
+                    features?:
+                      | T
+                      | {
+                          feature?: T;
+                          id?: T;
+                        };
+                    link?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
