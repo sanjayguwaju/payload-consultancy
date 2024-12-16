@@ -16,8 +16,8 @@ type SliderProps = {
 export const SliderType1 = ({ introContent }: SliderProps) => {
   const media = [
     { src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1734076098/vcnlnmgiijermbyaty6u.jpg', alt: 'Slide 1' },
-    { src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1734076099/sample2.jpg', alt: 'Slide 2' },
-    { src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1734076100/sample3.jpg', alt: 'Slide 3' },
+    { src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1734339288/qz5lppqeapkc39n3w2sr.jpg', alt: 'Slide 2' },
+    { src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1734339311/jyqu6pdjps4g88zqlhra.jpg', alt: 'Slide 3' },
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
