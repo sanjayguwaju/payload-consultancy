@@ -805,7 +805,7 @@ export interface VideoHeroSection {
  * via the `definition` "PartnershipLogoBlock".
  */
 export interface PartnershipLogoBlock {
-  type: 'none' | 'partnershipLogo';
+  type: 'none' | 'logoType1' | 'logoType2' | 'logoType3';
   richText?: {
     root: {
       type: string;

@@ -8,7 +8,7 @@ export const PartnershipLogoBlock: Block = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'partnershipLogo',
+      defaultValue: 'logoType3',
       label: 'Type',
       options: [
         {
@@ -16,8 +16,16 @@ export const PartnershipLogoBlock: Block = {
           value: 'none',
         },
         {
-          label: 'Partnership Logo',
-          value: 'partnershipLogo',
+          label: 'Logo Type 1',
+          value: 'logoType1',
+        },
+        {
+          label: 'Logo Type 2',
+          value: 'logoType2',
+        },
+        {
+          label: 'Logo Type 3',
+          value: 'logoType3',
         },
       ],
       required: true,

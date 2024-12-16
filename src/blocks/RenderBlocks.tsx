@@ -13,7 +13,6 @@ import { VideoHeroSection } from './VideoHeroSection/Component'
 import { PartnershipLogoBlock } from './PartnershipLogoBlock/Component'
 import { BlogCard } from './BlogCardBlock/Component'
 import { TeamSection } from './TeamSection/Component'
-import { LogoBlockRenderer } from './PartnershipLogoBlock/LogoBlockRenderer'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -24,7 +23,7 @@ const blockComponents = {
   feature: FeatureBlock,
   teamsection: TeamSection,
   videoherosection: VideoHeroSection,
-  LogoBlockRenderer: LogoBlockRenderer,
+  partnershiplogoblock: PartnershipLogoBlock,
   blogcardblock: BlogCard
 }
 
@@ -32,10 +31,7 @@ export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
 }> = (props) => {
   const { blocks } = props
-
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
-  console.log({blocks});
-
   if (hasBlocks) {
     return (
       <Fragment>
