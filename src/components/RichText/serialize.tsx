@@ -143,10 +143,10 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             
               switch (Tag) {
                 case 'h1':
-                  className = 'col-start-2 mb-4 text-4xl tracking-tight font-extrabold bg-blue-600'
+                  className = 'col-start-2 mb-4 text-4xl tracking-tight font-extrabold'
                   break
                 case 'h2':
-                  className = 'col-start-2 mb-4 text-3xl tracking-tight font-bold bg-orange-500'
+                  className = 'col-start-2 mb-4 text-3xl tracking-tight font-bold'
                   break
                 case 'h3':
                   className = 'col-start-2 mb-4 text-2xl tracking-tight font-semibold'
