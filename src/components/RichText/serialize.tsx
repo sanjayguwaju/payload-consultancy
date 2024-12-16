@@ -139,8 +139,28 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             }
             case 'heading': {
               const Tag = node?.tag
+              let className = ''
+            
+              switch (Tag) {
+                case 'h1':
+                  className = 'col-start-2 mb-4 text-4xl tracking-tight font-extrabold bg-blue-600'
+                  break
+                case 'h2':
+                  className = 'col-start-2 mb-4 text-3xl tracking-tight font-bold bg-orange-500'
+                  break
+                case 'h3':
+                  className = 'col-start-2 mb-4 text-2xl tracking-tight font-semibold'
+                  break
+                case 'h4':
+                  className = 'col-start-2 mb-4 text-xl tracking-tight font-medium'
+                  break
+                default:
+                  className = 'col-start-2 mb-4 text-lg tracking-tight font-normal'
+                  break
+              }
+            
               return (
-                <Tag className="col-start-2" key={index}>
+                <Tag className={className} key={index}>
                   {serializedChildren}
                 </Tag>
               )
