@@ -21,4 +21,8 @@ export const VideoHeroSection: Block = {
       label: false,
     },
   ],
+  labels: {
+    plural: 'Video Hero Sections',
+    singular: 'Video Hero Section',
+  },
 }

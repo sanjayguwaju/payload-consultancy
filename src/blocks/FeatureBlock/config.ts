@@ -33,5 +33,9 @@ export const Feature: Block = {
       ],
     },
   ],
+  labels: {
+    plural: 'Feature Blocks',
+    singular: 'Feature Block',
+  },
 }
   

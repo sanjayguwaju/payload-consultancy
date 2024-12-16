@@ -46,4 +46,8 @@ export const PartnershipLogoBlock: Block = {
       label: false,
     },
   ],
+  labels: {
+    plural: 'PartnershipLogo Blocks',
+    singular: 'PartnershipLogo Block',
+  },
 }

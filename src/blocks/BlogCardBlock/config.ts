@@ -21,4 +21,8 @@ export const BlogCardBlock: Block = {
       label: false,
     },
   ],
+  labels: {
+    plural: 'BlogCard Blocks',
+    singular: 'BlogCard Block',
+  },
 }

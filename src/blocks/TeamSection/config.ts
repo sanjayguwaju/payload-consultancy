@@ -76,5 +76,9 @@ export const TeamSection: Block = {
       ],
     },
   ],
+  labels: {
+    plural: 'Team Sections',
+    singular: 'Team Section',
+  },
 }
   

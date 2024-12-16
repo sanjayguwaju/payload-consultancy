@@ -65,4 +65,8 @@ export const PricingSection: Block = {
       ],
     },
   ],
+  labels: {
+    plural: 'Pricing Blocks',
+    singular: 'Pricing Block',
+  },
 }
