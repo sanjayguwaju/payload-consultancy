@@ -806,6 +806,7 @@ export interface VideoHeroSection {
  * via the `definition` "PartnershipLogoBlock".
  */
 export interface PartnershipLogoBlock {
+  type: 'none' | 'logoType1' | 'logoType2' | 'logoType3';
   richText?: {
     root: {
       type: string;
@@ -1269,6 +1270,7 @@ export interface PagesSelect<T extends boolean = true> {
         partnershiplogoblock?:
           | T
           | {
+              type?: T;
               richText?: T;
               id?: T;
               blockName?: T;
