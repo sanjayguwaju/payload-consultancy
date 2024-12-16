@@ -6,7 +6,7 @@ export const BlogCardBlock: Block = {
   interfaceName: 'BlogCardBlock',
   fields: [
     {
-      name: 'richText',
+      name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {

@@ -831,7 +831,7 @@ export interface PartnershipLogoBlock {
  * via the `definition` "BlogCardBlock".
  */
 export interface BlogCardBlock {
-  richText?: {
+  introContent?: {
     root: {
       type: string;
       children: {
@@ -1278,7 +1278,7 @@ export interface PagesSelect<T extends boolean = true> {
         blogcardblock?:
           | T
           | {
-              richText?: T;
+              introContent?: T;
               id?: T;
               blockName?: T;
             };
