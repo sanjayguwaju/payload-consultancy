@@ -10,6 +10,31 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'type',
+      type: 'select',
+      defaultValue: 'footerType3',
+      label: 'Type',
+      options: [
+        {
+          label: 'None',
+          value: 'none',
+        },
+        {
+          label: 'Footer Type 1',
+          value: 'footerType1',
+        },
+        {
+          label: 'Footer Type 2',
+          value: 'footerType2',
+        },
+        {
+          label: 'Footer Type 3',
+          value: 'footerType3',
+        },
+      ],
+      required: true,
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

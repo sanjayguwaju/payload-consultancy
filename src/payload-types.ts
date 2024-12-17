@@ -1782,6 +1782,7 @@ export interface Header {
  */
 export interface Footer {
   id: string;
+  type: 'none' | 'footerType1' | 'footerType2' | 'footerType3';
   navItems?:
     | {
         link: {
@@ -1887,6 +1888,7 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  type?: T;
   navItems?:
     | T
     | {
