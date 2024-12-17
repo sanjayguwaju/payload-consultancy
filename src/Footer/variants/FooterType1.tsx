@@ -46,7 +46,7 @@ export const FooterType1 = () => {
 
           {/* Social Media */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">Let's get social</h2>
+            <h2 className="text-2xl font-bold mb-6">Let&apos;s get social</h2>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-indigo-300 transition">
                 <Facebook className="w-6 h-6" />
