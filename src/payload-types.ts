@@ -163,6 +163,7 @@ export interface Page {
     | PricingSection
     | SliderBlock
     | ReviewBlock
+    | CustomBlock
   )[];
   meta?: {
     title?: string | null;
@@ -937,9 +938,50 @@ export interface ReviewBlock {
     };
     [k: string]: unknown;
   } | null;
+  reviews?:
+    | {
+        content: string;
+        author: string;
+        location: string;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'reviewblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Custom Block".
+ */
+export interface CustomBlock {
+  type: 'none' | 'customType1' | 'customType2' | 'customType3';
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  reviews?:
+    | {
+        content: string;
+        author: string;
+        location: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'customblock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1369,6 +1411,30 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               type?: T;
               introContent?: T;
+              reviews?:
+                | T
+                | {
+                    content?: T;
+                    author?: T;
+                    location?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        customblock?:
+          | T
+          | {
+              type?: T;
+              introContent?: T;
+              reviews?:
+                | T
+                | {
+                    content?: T;
+                    author?: T;
+                    location?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

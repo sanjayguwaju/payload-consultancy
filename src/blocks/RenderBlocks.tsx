@@ -15,6 +15,7 @@ import { TeamSection } from './TeamSection/Component'
 import { PricingSection } from './PricingBlock/Component'
 import { SliderBlock } from './Sliders/Component'
 import { ReviewBlock } from './Review/Component'
+import { CustomBlock } from './Custom/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -30,6 +31,7 @@ const blockComponents = {
   pricingsection: PricingSection,
   sliderblock: SliderBlock,
   reviewblock: ReviewBlock,
+  customblock: CustomBlock
 }
 
 export const RenderBlocks: React.FC<{

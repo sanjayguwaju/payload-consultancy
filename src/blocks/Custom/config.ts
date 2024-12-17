@@ -1,14 +1,14 @@
 import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'
 
-export const ReviewBlock: Block = {
-  slug: 'reviewblock',
-  interfaceName: 'ReviewBlock',
+export const CustomBlock: Block = {
+  slug: 'customblock',
+  interfaceName: 'Custom Block',
   fields: [
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'reviewType3',
+      defaultValue: 'customType1',
       label: 'Type',
       options: [
         {
@@ -16,16 +16,16 @@ export const ReviewBlock: Block = {
           value: 'none',
         },
         {
-          label: 'Review Type 1',
-          value: 'reviewType1',
+          label: 'Custom Type 1',
+          value: 'customType1',
         },
         {
-          label: 'Review Type 2',
-          value: 'reviewType2',
+          label: 'Custom Type 2',
+          value: 'customType2',
         },
         {
-          label: 'Review Type 3',
-          value: 'reviewType3',
+          label: 'Custom Type 3',
+          value: 'customType3',
         },
       ],
       required: true,
@@ -71,7 +71,7 @@ export const ReviewBlock: Block = {
     },
   ],
   labels: {
-    plural: 'Review Blocks',
-    singular: 'Review Block',
+    plural: 'Custom Blocks',
+    singular: 'Custom Block',
   },
 }
