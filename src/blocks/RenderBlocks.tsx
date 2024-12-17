@@ -1,4 +1,3 @@
-import { cn } from 'src/utilities/cn'
 import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
@@ -15,6 +14,7 @@ import { BlogCard } from './BlogCardBlock/Component'
 import { TeamSection } from './TeamSection/Component'
 import { PricingSection } from './PricingBlock/Component'
 import { SliderBlock } from './Sliders/Component'
+import { ReviewBlock } from './Review/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -28,7 +28,8 @@ const blockComponents = {
   partnershiplogoblock: PartnershipLogoBlock,
   blogcardblock: BlogCard,
   pricingsection: PricingSection,
-  sliderblock: SliderBlock
+  sliderblock: SliderBlock,
+  renderblock: ReviewBlock,
 }
 
 export const RenderBlocks: React.FC<{

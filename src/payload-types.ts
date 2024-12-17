@@ -162,6 +162,7 @@ export interface Page {
     | BlogCardBlock
     | PricingSection
     | SliderBlock
+    | ReviewBlock
   )[];
   meta?: {
     title?: string | null;
@@ -917,6 +918,31 @@ export interface SliderBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewBlock".
+ */
+export interface ReviewBlock {
+  type: 'none' | 'reviewType1' | 'reviewType2' | 'reviewType3';
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1335,6 +1361,14 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               type?: T;
               richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        reviewblock?:
+          | T
+          | {
+              type?: T;
+              introContent?: T;
               id?: T;
               blockName?: T;
             };

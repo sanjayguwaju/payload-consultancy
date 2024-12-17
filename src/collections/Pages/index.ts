@@ -28,6 +28,7 @@ import { PartnershipLogoBlock } from '@/blocks/PartnershipLogoBlock/config'
 import { BlogCardBlock } from '@/blocks/BlogCardBlock/config'
 import { PricingSection } from '@/blocks/PricingBlock/config'
 import { sliderBlock } from '@/blocks/Sliders/config'
+import { ReviewBlock } from '@/blocks/Review/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -84,7 +85,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Feature, TeamSection, VideoHeroSection, PartnershipLogoBlock, BlogCardBlock, PricingSection, sliderBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Feature, TeamSection, VideoHeroSection, PartnershipLogoBlock, BlogCardBlock, PricingSection, sliderBlock, ReviewBlock],
               required: true,
             },
           ],
