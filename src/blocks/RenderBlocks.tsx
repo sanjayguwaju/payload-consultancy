@@ -29,7 +29,7 @@ const blockComponents = {
   blogcardblock: BlogCard,
   pricingsection: PricingSection,
   sliderblock: SliderBlock,
-  renderblock: ReviewBlock,
+  reviewblock: ReviewBlock,
 }
 
 export const RenderBlocks: React.FC<{
