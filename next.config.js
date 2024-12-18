@@ -30,6 +30,30 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'tailwindui.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.tuple.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'reform.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'savvycal.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'laravel.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'transistor.fm',
+      },
+      {
+        protocol: 'https',
+        hostname: 'statamic.com',
+      },
     ],
   },
   reactStrictMode: true,
