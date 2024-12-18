@@ -1,7 +1,7 @@
 import React from 'react'
-import { CustomHeroType1 } from './variants/CustomType1'
-import { CustomHeroType2 } from './variants/CustomType2'
-import { CustomHeroType3 } from './variants/CustomType3'
+import { CustomHeroType1 } from './variants/CustomHeroType1'
+import { CustomHeroType2 } from './variants/CustomHeroType2'
+import { CustomHeroType3 } from './variants/CustomHeroType3'
 
 
 const customHeroVariants = {
