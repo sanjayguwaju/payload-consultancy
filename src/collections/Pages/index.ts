@@ -30,6 +30,7 @@ import { PricingSection } from '@/blocks/PricingBlock/config'
 import { sliderBlock } from '@/blocks/Sliders/config'
 import { ReviewBlock } from '@/blocks/Review/config'
 import { CustomBlock } from '@/blocks/Custom/config'
+import { StoryBlock } from '@/blocks/Stories/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -100,7 +101,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 PricingSection, 
                 sliderBlock, 
                 ReviewBlock, 
-                CustomBlock
+                CustomBlock,
+                StoryBlock
               ],
               required: true,
             },

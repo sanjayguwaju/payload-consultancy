@@ -164,6 +164,7 @@ export interface Page {
     | SliderBlock
     | ReviewBlock
     | CustomBlock
+    | StoryBlock
   )[];
   meta?: {
     title?: string | null;
@@ -985,6 +986,31 @@ export interface CustomBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Story Block".
+ */
+export interface StoryBlock {
+  type: 'none' | 'storyType1' | 'storyType2' | 'storyType3';
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'storyblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1435,6 +1461,14 @@ export interface PagesSelect<T extends boolean = true> {
                     location?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        storyblock?:
+          | T
+          | {
+              type?: T;
+              introContent?: T;
               id?: T;
               blockName?: T;
             };
