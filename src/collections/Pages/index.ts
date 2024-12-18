@@ -31,6 +31,7 @@ import { sliderBlock } from '@/blocks/Sliders/config'
 import { ReviewBlock } from '@/blocks/Review/config'
 import { CustomBlock } from '@/blocks/Custom/config'
 import { StoryBlock } from '@/blocks/Stories/config'
+import { CustomHeroBlock } from '@/blocks/CustomHero/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -102,7 +103,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 sliderBlock, 
                 ReviewBlock, 
                 CustomBlock,
-                StoryBlock
+                StoryBlock,
+                CustomHeroBlock,
               ],
               required: true,
             },

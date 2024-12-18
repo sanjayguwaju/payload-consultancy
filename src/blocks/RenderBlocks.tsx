@@ -17,6 +17,7 @@ import { SliderBlock } from './Sliders/Component'
 import { ReviewBlock } from './Review/Component'
 import { CustomBlock } from './Custom/Component'
 import { StoryBlock } from './Stories/Component'
+import { CustomHeroBlock } from './CustomHero/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -34,6 +35,7 @@ const blockComponents = {
   reviewblock: ReviewBlock,
   customblock: CustomBlock,
   storyblock: StoryBlock,
+  customheroblock: CustomHeroBlock,
 }
 
 export const RenderBlocks: React.FC<{
