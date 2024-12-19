@@ -1,5 +1,6 @@
 import { CMSLink } from '@/components/Link'
 import Logo from '@/components/Logo/Logo'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import Link from 'next/link'
 import React from 'react'
 

@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector';
 
 export const FooterType1 = () => {
   return (
     <footer className="bg-indigo-950 text-white py-16">
+      <ThemeSelector />
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">

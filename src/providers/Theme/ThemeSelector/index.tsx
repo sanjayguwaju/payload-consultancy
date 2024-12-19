@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/select'
 import React, { useState } from 'react'
 
+import { Sun, Moon, Monitor } from 'lucide-react'
 import type { Theme } from './types'
 
 import { useTheme } from '..'
@@ -21,7 +22,7 @@ export const ThemeSelector: React.FC = () => {
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
       setTheme(null)
-      setValue('auto')
+      setValue('light')
     } else {
       setTheme(themeToSet)
       setValue(themeToSet)
@@ -42,9 +43,15 @@ export const ThemeSelector: React.FC = () => {
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="auto">Auto</SelectItem>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
+        <SelectItem value="auto">
+          <Monitor className="w-4 h-4 mr-2 inline" />
+        </SelectItem>
+        <SelectItem value="light">
+          <Sun className="w-4 h-4 mr-2 inline" />
+        </SelectItem>
+        <SelectItem value="dark">
+          <Moon className="w-4 h-4 mr-2 inline" />
+        </SelectItem>
       </SelectContent>
     </Select>
   )
