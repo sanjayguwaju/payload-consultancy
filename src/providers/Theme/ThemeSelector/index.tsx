@@ -17,7 +17,7 @@ import { themeLocalStorageKey } from './types'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('light')
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
@@ -45,12 +45,15 @@ export const ThemeSelector: React.FC = () => {
       <SelectContent>
         <SelectItem value="auto">
           <Monitor className="w-4 h-4 mr-2 inline" />
+          Auto
         </SelectItem>
         <SelectItem value="light">
           <Sun className="w-4 h-4 mr-2 inline" />
+          Light
         </SelectItem>
         <SelectItem value="dark">
           <Moon className="w-4 h-4 mr-2 inline" />
+          Dark
         </SelectItem>
       </SelectContent>
     </Select>
