@@ -27,8 +27,18 @@ export const CustomHeroBlock: Block = {
           label: 'Custom Hero Type 3',
           value: 'customHeroType3',
         },
+        {
+          label: 'Custom Hero Type 4',
+          value: 'customHeroType4',
+        },
       ],
       required: true,
+    },
+    {
+      name: 'isReverse', 
+      type: 'checkbox',
+      label: 'Reverse Hero Layout',
+      defaultValue: false,
     },
     {
       name: 'introContent',

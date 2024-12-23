@@ -54,6 +54,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'statamic.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.aceternity.com',
+      },
     ],
   },
   reactStrictMode: true,

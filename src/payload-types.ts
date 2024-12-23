@@ -899,7 +899,7 @@ export interface PricingSection {
  * via the `definition` "Slider Block".
  */
 export interface SliderBlock {
-  type: 'none' | 'sliderType1' | 'sliderType2' | 'sliderType3';
+  type: 'none' | 'sliderType1' | 'sliderType2' | 'sliderType3' | 'sliderType4';
   richText?: {
     root: {
       type: string;
@@ -1015,7 +1015,8 @@ export interface StoryBlock {
  * via the `definition` "Custom Hero Block".
  */
 export interface CustomHeroBlock {
-  type: 'none' | 'customHeroType1' | 'customHeroType2' | 'customHeroType3';
+  type: 'none' | 'customHeroType1' | 'customHeroType2' | 'customHeroType3' | 'customHeroType4';
+  isReverse?: boolean | null;
   introContent?: {
     root: {
       type: string;
@@ -1502,6 +1503,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
+              isReverse?: T;
               introContent?: T;
               id?: T;
               blockName?: T;

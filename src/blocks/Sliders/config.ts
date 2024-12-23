@@ -27,6 +27,10 @@ export const sliderBlock: Block = {
           label: 'Slider Type 3',
           value: 'sliderType3',
         },
+        {
+          label: 'Slider Type 4',
+          value: 'sliderType4',
+        },
       ],
       required: true,
     },
