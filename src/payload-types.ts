@@ -1015,7 +1015,7 @@ export interface StoryBlock {
  * via the `definition` "Custom Hero Block".
  */
 export interface CustomHeroBlock {
-  type: 'none' | 'customHeroType1' | 'customHeroType2' | 'customHeroType3' | 'customHeroType4';
+  type: 'none' | 'customHeroType1' | 'customHeroType2' | 'customHeroType3' | 'customHeroType4' | 'customHeroType5';
   isReverse?: boolean | null;
   introContent?: {
     root: {
