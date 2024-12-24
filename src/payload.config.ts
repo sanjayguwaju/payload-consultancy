@@ -1,4 +1,5 @@
 // storage-adapter-import-placeholder
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing';
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import sharp from 'sharp' // sharp-import
@@ -16,6 +17,7 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { Notices } from './collections/Notices'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,12 +67,21 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Notices, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+    uploadthingStorage({
+      collections: {
+        media: true, // Enable Uploadthing for the "media" collection
+      },
+      options: {
+        token: process.env.UPLOADTHING_TOKEN, // Use the Uploadthing token from environment variables
+        acl: 'public-read', // Optional: Defaults to 'public-read'
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
