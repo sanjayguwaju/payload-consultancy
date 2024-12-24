@@ -1,4 +1,5 @@
 // storage-adapter-import-placeholder
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing';
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import sharp from 'sharp' // sharp-import
@@ -72,6 +73,15 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+    uploadthingStorage({
+      collections: {
+        media: true, // Enable Uploadthing for the "media" collection
+      },
+      options: {
+        token: process.env.UPLOADTHING_TOKEN, // Use the Uploadthing token from environment variables
+        acl: 'public-read', // Optional: Defaults to 'public-read'
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
