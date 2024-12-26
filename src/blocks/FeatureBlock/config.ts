@@ -6,6 +6,31 @@ export const Feature: Block = {
   interfaceName: 'FeatureBlock',
   fields: [
     {
+      name: 'type',
+      type: 'select',
+      defaultValue: 'featureType3',
+      label: 'Type',
+      options: [
+        {
+          label: 'None',
+          value: 'none',
+        },
+        {
+          label: 'Feature Type 1',
+          value: 'featureType1',
+        },
+        {
+          label: 'Feature Type 2',
+          value: 'featureType2',
+        },
+        {
+          label: 'Feature Type 3',
+          value: 'featureType3',
+        },
+      ],
+      required: true,
+    },
+    {
       name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({

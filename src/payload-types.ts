@@ -733,6 +733,7 @@ export interface Form {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
+  type: 'none' | 'featureType1' | 'featureType2' | 'featureType3';
   introContent?: {
     root: {
       type: string;
@@ -1426,6 +1427,7 @@ export interface PagesSelect<T extends boolean = true> {
         feature?:
           | T
           | {
+              type?: T;
               introContent?: T;
               media?:
                 | T
