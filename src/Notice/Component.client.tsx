@@ -11,20 +11,14 @@ interface NoticeModalClientProps {
 export const NoticeModalClient: React.FC<NoticeModalClientProps> = ({ numberOfModals = 3 }) => {
   const [modals, setModals] = useState<boolean[]>([]);
   const [notices, setNotices] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchNotices = async () => {
       try {
         const data = await getNotices();
-        console.log({data});
-        setNotices(data); // Set fetched notices
-        setModals(new Array(data.length).fill(true)); // Open modals for fetched notices
+        setNotices(data); 
+        setModals(new Array(data.length).fill(true));
       } catch (err) {
-        setError("Failed to fetch notices");
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -38,9 +32,6 @@ export const NoticeModalClient: React.FC<NoticeModalClientProps> = ({ numberOfMo
       return newModals;
     });
   };
-
-  if (loading) return <p>Loading notices...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <>

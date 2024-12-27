@@ -1069,12 +1069,7 @@ export interface Notice {
     };
     [k: string]: unknown;
   } | null;
-  media?:
-    | {
-        mediaItem: string | Media;
-        id?: string | null;
-      }[]
-    | null;
+  mediaItem?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -1608,12 +1603,7 @@ export interface NoticesSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   introContent?: T;
-  media?:
-    | T
-    | {
-        mediaItem?: T;
-        id?: T;
-      };
+  mediaItem?: T;
   updatedAt?: T;
   createdAt?: T;
 }

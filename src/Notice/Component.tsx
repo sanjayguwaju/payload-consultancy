@@ -11,7 +11,7 @@ interface ModalProps {
 
 export const NoticeModal: React.FC<ModalProps> = ({ isModalOpen, handleClose, modalTitle, notices }) => {
   if (!isModalOpen) return null;
-  const { introContent, media } = notices;
+  const { introContent, mediaItem } = notices;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-[800px] h-[600px] relative overflow-auto">
@@ -30,20 +30,20 @@ export const NoticeModal: React.FC<ModalProps> = ({ isModalOpen, handleClose, mo
             This is the detailed content for the notice titled &quot;{modalTitle}&quot;.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {media.map((item: any, index: number) => (
-              <div key={index} className="w-64 h-64 overflow-hidden mx-auto">
-                {typeof item.mediaItem === 'object' && (
-                  <Media
-                    fill
-                    priority={false}
-                    imgClassName="object-cover"
-                    loading="lazy"
-                    resource={item.mediaItem}
-                    className="object-cover w-full h-full"
-                  />
-                )}
-              </div>
-            ))}
+            <div className="w-64 h-64 overflow-hidden mx-auto">
+              {mediaItem && typeof mediaItem === 'object' && (
+                <Media
+                  fill
+                  priority={false}
+                  imgClassName="object-cover"
+                  loading="lazy"
+                  resource={mediaItem}
+                  className="object-cover w-full h-full"
+                />
+              )}
+            </div>
+
+            
           </div>
         </div>
       </div>

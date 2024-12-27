@@ -65,16 +65,9 @@ export const Notices: CollectionConfig = {
             label: false,
         },
         {
-            name: 'media',
-            type: 'array',
-            fields: [
-                {
-                    name: 'mediaItem',
-                    type: 'upload',
-                    relationTo: 'media',
-                    required: true,
-                }
-            ],
-        },
+            name: 'mediaItem',
+            type: 'upload',
+            relationTo: 'media',
+        }
     ],
 }
