@@ -6,7 +6,7 @@ interface ModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
   modalTitle: string;
-  notices: any
+  notices: any;
 }
 
 export const NoticeModal: React.FC<ModalProps> = ({ isModalOpen, handleClose, modalTitle, notices }) => {
@@ -14,10 +14,10 @@ export const NoticeModal: React.FC<ModalProps> = ({ isModalOpen, handleClose, mo
   const { introContent, media } = notices;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg  w-[800px] h-[600px] relative">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-[800px] h-[600px] relative overflow-auto">
         <button
           onClick={handleClose}
-          className="z-50 absolute top-3 right-3 text-5xl text-black  hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="z-50 absolute top-3 right-3 text-5xl text-black hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
         >
           ×
         </button>
@@ -27,19 +27,23 @@ export const NoticeModal: React.FC<ModalProps> = ({ isModalOpen, handleClose, mo
           </h2>
           {introContent && <RichText className="mb-6" content={introContent} enableGutter={false} />}
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            This is the detailed content for the notice titled "{modalTitle}".
+            This is the detailed content for the notice titled &quot;{modalTitle}&quot;.
           </p>
-          <div className="w-64 h-64 overflow-hidden">
-            {media[0] && typeof media[0].mediaItem === 'object' && (
-              <Media
-                fill
-                priority={false}
-                imgClassName="object-cover"
-                loading="lazy"
-                resource={media[0].mediaItem}
-                className="object-cover w-full h-full"
-              />
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {media.map((item: any, index: number) => (
+              <div key={index} className="w-64 h-64 overflow-hidden mx-auto">
+                {typeof item.mediaItem === 'object' && (
+                  <Media
+                    fill
+                    priority={false}
+                    imgClassName="object-cover"
+                    loading="lazy"
+                    resource={item.mediaItem}
+                    className="object-cover w-full h-full"
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
