@@ -2,7 +2,7 @@
 
 export async function getNotices(): Promise<any[]> {
   try {
-    const resp = await fetch(process.env.BASE_API_URL + '/api/notices');
+    const resp = await fetch(process.env.BASE_API_URL + '/api/noticesboard');
     const respJson = await resp.json();
 
     if (!resp.ok) {

@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     if (notices.docs.length === 0) {
       return Response.json({ message: 'No notices found' }, { status: 404 });
     }
-
+    
     return Response.json({ data: notices.docs }, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
