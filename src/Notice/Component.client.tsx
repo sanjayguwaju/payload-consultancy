@@ -1,15 +1,34 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { getNotices } from "@/actions/notice-actions";
 import NoticeModal from "./Component";
 
-export const NoticeModalClient: React.FC = () => {
+interface NoticeModalClientProps {
+  numberOfModals?: number; // Allow dynamic number of modals
+}
+
+export const NoticeModalClient: React.FC<NoticeModalClientProps> = ({ numberOfModals = 3 }) => {
   const [modals, setModals] = useState<boolean[]>([]);
+  const [notices, setNotices] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Open multiple modals (e.g., 3 modals)
-    const numberOfModals = 3;
-    setModals(new Array(numberOfModals).fill(true)); // Fill array with `true` to open modals
+    const fetchNotices = async () => {
+      try {
+        const data = await getNotices();
+        console.log({data});
+        setNotices(data); // Set fetched notices
+        setModals(new Array(data.length).fill(true)); // Open modals for fetched notices
+      } catch (err) {
+        setError("Failed to fetch notices");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotices();
   }, []);
 
   const handleClose = (index: number) => {
@@ -20,16 +39,25 @@ export const NoticeModalClient: React.FC = () => {
     });
   };
 
+  if (loading) return <p>Loading notices...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <>
-      {modals.map((isModalOpen, index) => (
-        <NoticeModal
-          key={index} // If modals are dynamically added or removed, use a unique id for `key`
-          isModalOpen={isModalOpen}
-          handleClose={() => handleClose(index)}
-          modalIndex={index}
-        />
-      ))}
+      {modals.map(
+        (isModalOpen, index) =>
+          isModalOpen && (
+            <NoticeModal
+              key={index}
+              isModalOpen={isModalOpen}
+              handleClose={() => handleClose(index)}
+              modalTitle={notices[index]?.title || `Notice #${index + 1}`}
+              notices={notices[index]}
+            />
+          )
+      )}
     </>
   );
 };
+
+export default NoticeModalClient;
