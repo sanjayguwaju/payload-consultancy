@@ -3,11 +3,13 @@
 import React from 'react';
 import { Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector';
+import { quickLinks } from '../constants/quickLinks.constants';
+import { studyDestinations } from '../constants/studyDestionations.constatants';
+import { companyInfos } from '../constants/companyInfos.constatants';
 
 export const FooterType1 = () => {
   return (
     <footer className="bg-indigo-950 text-white py-16">
-      <ThemeSelector />
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -15,11 +17,13 @@ export const FooterType1 = () => {
           <div>
             <h2 className="text-2xl font-bold mb-6">About Us</h2>
             <ul className="space-y-3">
-              <li><a href="#" className="hover:text-indigo-300 transition">Who We Are</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Our Timeline</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Our Leadership Team</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Partner With Us</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Careers</a></li>
+              {companyInfos?.map((link, index) => (
+                <li key={index}>
+                  <a href={link?.href} className="hover:text-indigo-300 transition">
+                    {link?.text}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -27,10 +31,13 @@ export const FooterType1 = () => {
           <div>
             <h2 className="text-2xl font-bold mb-6">Quick Links</h2>
             <ul className="space-y-3">
-              <li><a href="#" className="hover:text-indigo-300 transition">Visit Our Virtual Office</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Test Preparation</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">International Study Guide</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Duolingo English Test</a></li>
+              {quickLinks?.map((link, index) => (
+                <li key={index}>
+                  <a href={link?.href} className="hover:text-indigo-300 transition">
+                    {link?.text}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -38,13 +45,15 @@ export const FooterType1 = () => {
           <div>
             <h2 className="text-2xl font-bold mb-6">Study Destinations</h2>
             <ul className="space-y-3">
-              <li><a href="#" className="hover:text-indigo-300 transition">Study in Australia</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Study in USA</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Study in Canada</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Study in UK</a></li>
-              <li><a href="#" className="hover:text-indigo-300 transition">Study in Europe</a></li>
+              {studyDestinations?.map((link, index) => (
+                <li key={index}>
+                  <a href={link?.href} className="hover:text-indigo-300 transition">
+                    {link?.text}
+                  </a>
+                </li>
+              ))}
             </ul>
-          </div>
+          </div>   
 
           {/* Social Media */}
           <div>
@@ -80,12 +89,15 @@ export const FooterType1 = () => {
 
         {/* Copyright */}
         <div className="text-center text-sm text-indigo-300">
-          <p>Copyright © 2024 aecc. 
-            <a href="#" className="hover:text-white transition ml-2">Useful Links</a> | 
-            <a href="#" className="hover:text-white transition mx-2">Glossary</a> | 
-            <a href="#" className="hover:text-white transition">Terms of Use</a> | 
-            <a href="#" className="hover:text-white transition ml-2">Privacy Policy</a>
+          <p>Copyright © {new Date().getFullYear()} swot.
+            <a href="#" className="hover:text-white transition ml-2"> Useful Links </a> | 
+            <a href="#" className="hover:text-white transition mx-2"> Glossary </a> | 
+            <a href="#" className="hover:text-white transition"> Terms of Use </a> | 
+            <a href="#" className="hover:text-white transition ml-2"> Privacy Policy </a>
           </p>
+        </div>
+        <div>
+          <ThemeSelector />
         </div>
       </div>
     </footer>
