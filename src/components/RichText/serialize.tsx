@@ -5,6 +5,12 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from '@/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
+import type { 
+  SerializedTableNode,
+  SerializedTableRowNode,
+  SerializedTableCellNode 
+} from '@payloadcms/richtext-lexical'
+
 import type { BannerBlock as BannerBlockProps } from '@/payload-types'
 
 import {
@@ -24,6 +30,9 @@ import type {
 export type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedTableNode
+  | SerializedTableRowNode
+  | SerializedTableCellNode
 
 type Props = {
   nodes: NodeTypes[]
@@ -203,6 +212,28 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                 </blockquote>
               )
             }
+            case 'table': {
+              return (
+                <table className="col-start-2 w-full border-collapse border border-gray-300" key={index}>
+                  {serializedChildren}
+                </table>
+              )
+            }
+            case 'tablerow': {
+              return (
+                <tr className="border-b border-gray-300" key={index}>
+                  {serializedChildren}
+                </tr>
+              )
+            }
+            case 'tablecell': {
+              return (
+                <td className="border border-gray-300 p-2" key={index}>
+                  {serializedChildren}
+                </td>
+              )
+            }
+
             case 'link': {
               const fields = node.fields
 
